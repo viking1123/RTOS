@@ -2,8 +2,8 @@
 
 | No. of Clients | Computation Time |
 |----------------|------------------|
-| Client 1| 3.114s|
-| Clients 1,2| 5.218s|
-| Clients 1,2,3|7.982s|
-| Clients 1,2,3,4|9.631s|
-| Clients 1,2,3,4,5|11.223s|
+| Client 1| 0.000041s|
+| Clients 1,2| 0.000044s|
+| Clients 1,2,3|0.000051s|
+| Clients 1,2,3,4|0.000057s|
+| Clients 1,2,3,4,5|0.000209s|
