@@ -1,9 +1,13 @@
 /*
  CLIENT ... sends messages to the server
  */
+/*
+ CLIENT ... sends messages to the server
+ */
  #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include <sys/types.h>
 #include <sys/ipc.h>
@@ -27,6 +31,7 @@ int main (int argc, char **argv)
     key_t server_queue_key;
     int server_qid, myqid;
     struct message my_message, return_message;
+    clock_t t;
 
     // create my client queue for receiving messages from server
     if ((myqid = msgget (IPC_PRIVATE, 0660)) == -1) {
@@ -55,6 +60,8 @@ int main (int argc, char **argv)
         if (my_message.message_text.buf [length - 1] == '\n')
            my_message.message_text.buf [length - 1] = '\0';
 
+       t=clock();
+
         // send message to server
         if (msgsnd (server_qid, &my_message, sizeof (struct message_text), 0) == -1) {
             perror ("client: msgsnd");
@@ -67,8 +74,12 @@ int main (int argc, char **argv)
             exit (1);
         }
 
+        t=clock()-t;
+        double time_taken = ((double)t)/CLOCKS_PER_SEC;
+
         // process return message from server
         printf ("Message received from server: %s\n\n", return_message.message_text.buf);  
+        printf("\n %f seconds taken..", time_taken);
 
         printf ("Please type a message: ");
     }
@@ -82,3 +93,4 @@ int main (int argc, char **argv)
 
     exit (0);
 }
+
