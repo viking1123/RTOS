@@ -6,4 +6,4 @@ Server:
 
 Client:
 1. gcc -o c1 c1.c             // Similarly create executables for other clients
-2. ./c1 127.0.0.1             //when program run on single system, run other executables too
+2. ./c1 127.0.0.1             // run other executables too with IP address of the server system (single system used in case)
