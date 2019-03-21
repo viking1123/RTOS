@@ -120,11 +120,14 @@ int main(){
 
 
 
-		strcat(f4_buffer,f5_buffer);
+		/*strcat(f4_buffer,f5_buffer);
 		strcat(f3_buffer,f4_buffer);	
 		strcat(f2_buffer,f3_buffer);
 		strcat(f1_buffer,f2_buffer);
 		strcpy(file_buffer,f1_buffer);
+		*/
+		
+		sprintf(file_buffer,"%s,%s,%s,%s,%s",f1_buffer,f2_buffer,f3_buffer,f4_buffer,f5_buffer);
 
 
 		fclose(fp1);
