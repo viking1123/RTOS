@@ -31,10 +31,10 @@ int main()
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if(sockfd < 0)
 	{
-		printf("Connection Error..\n");
+		printf("Error..\n");
 		exit(1);
 	}
-	printf("Server Socket created..\n");
+	printf("Socket created..\n");
 
 	memset(&serverAddr, '\0', sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
@@ -124,20 +124,7 @@ int main()
 		}
 
 
-		/*strcat(f4_buffer,c);
-		strcat(f3_buffer,c);
-		strcat(f2_buffer,c);
-		strcat(f1_buffer,c);
-		strcat(file_buffer,c);
-
-
-
-		strcat(f4_buffer,f5_buffer);
-		strcat(f3_buffer,f4_buffer);	
-		strcat(f2_buffer,f3_buffer);
-		strcat(f1_buffer,f2_buffer);
-		strcpy(file_buffer,f1_buffer);
-		*/
+		
 
 		sprintf(file_buffer,"%s,%s,%s,%s,%s",f1_buffer,f2_buffer,f3_buffer,f4_buffer,f5_buffer);
 
