@@ -9,8 +9,7 @@
 
 #define PORT 4444
 
-int main()
-{
+int main(){
 	FILE *fp1,*fp2,*fp3,*fp4,*fp5;
 	char file_buffer[10000],f1_buffer[1000],f2_buffer[1000],f3_buffer[1000],f4_buffer[1000],f5_buffer[1000];
 	char buf_recv[1000],buf_send[1000];
@@ -31,10 +30,10 @@ int main()
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if(sockfd < 0)
 	{
-		printf("Error..\n");
+		printf("Connection Error..\n");
 		exit(1);
 	}
-	printf("Socket created..\n");
+	printf("Server Socket created..\n");
 
 	memset(&serverAddr, '\0', sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
@@ -80,7 +79,7 @@ int main()
 			exit(0);
 			}
 
-        	printf("Sending the file content to client....\n");
+        	printf("Sending parameters..\n");
 		while(!feof(fp1))//loops till eof
 		{
 			fgets(f1_buffer,1000,fp1);
@@ -124,8 +123,6 @@ int main()
 		}
 
 
-		
-
 		sprintf(file_buffer,"%s,%s,%s,%s,%s",f1_buffer,f2_buffer,f3_buffer,f4_buffer,f5_buffer);
 
 		fclose(fp1);
@@ -141,10 +138,13 @@ int main()
 				}
 				else
 				{
-					printf("Client: %s\n", file_buffer);					
+					printf("Client: %s\n", file_buffer);
+						
+
+					
 					send(newSocket,file_buffer,strlen(file_buffer),0);
+					sleep(2);
 					bzero(file_buffer, sizeof(file_buffer));
-					break;
 				}
 			}
 		}
