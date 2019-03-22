@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,13 +17,14 @@ int main(){
 	int clientSocket, ret;
 	struct sockaddr_in serverAddr;
 	char buffer[1024];
+	int hours, minutes, seconds;
 
 	clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if(clientSocket < 0){
-		printf("Error in connection.\n");
+		printf("[-]Error in connection.\n");
 		exit(1);
 	}
-	printf(" Socket created.\n");
+	printf("[+]Client Socket is created.\n");
 
 	memset(&serverAddr, '\0', sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
@@ -31,38 +33,51 @@ int main(){
 
 	ret = connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
 	if(ret < 0){
-		printf("Error in connection.\n");
+		printf("[-]Error in connection.\n");
 		exit(1);
 	}
-	printf("Connected \n");
+	printf("[+]Connected to Server.\n");
+
+	while(1)
+	{
 		
 		
-n=recv(clientSocket, buffer, sizeof(buffer), 0);
-
-					buffer[n]='\0';
-			printf("Server: \t%s\n", buffer);
-	
-
-
-
-
-FILE *fp;
-
-
+	n=recv(clientSocket, buffer, sizeof(buffer), 0);
+		buffer[n]='\0';
+		printf("Parameters from Server:  %s ", buffer);
+				
 /*
-fp=fopen("parameters.csv","w+");
-fprintf(fp,"parameter1,parameter2,parameter3,parameter4,parameter5 \n");
-fclose(fp);
+	FILE *fp;
+	int i;
+	fp = fopen("parameters.csv","w+");
+	fprintf(fp,"parameter1,parameter2,parameter3,parameter4,parameter5,time ");
+
+	fclose(fp);	
 */
 
-fp=fopen("parameters.csv","a+");
 
-
-fprintf(fp,buffer);
-
-fprintf(fp,"\n");
-fclose(fp);
+	time_t now;
 	
+	time(&now);
+
+	struct tm *local = localtime(&now);
+
+	hours = local->tm_hour;			// get hours since midnight	(0-23)
+	minutes = local->tm_min;		// get minutes passed after the hour (0-59)
+	seconds = local->tm_sec;		// get seconds passed after the minute (0-59)
+
+	// print local time
+	
+
+	FILE *fp1;
+	fp1 = fopen("parameters.csv","a+");
+	fprintf(fp1,buffer);
+	fprintf(fp1," , %02d:%02d:%02d \n", hours, minutes, seconds);
+	fclose(fp1);
+	
+	printf(" taken at time : %02d:%02d:%02d \n", hours, minutes, seconds);
+
+	}
 
 	return 0;
 }
