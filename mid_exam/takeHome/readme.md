@@ -1,4 +1,3 @@
-compile:
-gcc -o snake_ladder snake_ladder.c -lpthread
+Simulating a game of Snakes and Ladders using C co-routines
 
 
