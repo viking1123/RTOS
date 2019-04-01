@@ -9,9 +9,9 @@
 
 // Global Variables
 
-pthread_t th_id[100]; 
+pthread_t th_id[4]; 
 long int th_count = 0;
-pthread_mutex_t th_locks[100]; 
+pthread_mutex_t th_locks[4]; 
 pthread_mutex_t m_lock;
 
 // Co-Routine Functions 
@@ -19,7 +19,7 @@ pthread_mutex_t m_lock;
 void handle_init(){
 	
 	int i = 0; 
-	for(i = 0; i < 100; i++){
+	for(i = 0; i < 4; i++){
 		pthread_mutex_init(&(th_locks[i]), NULL);
 		pthread_mutex_lock(&(th_locks[i]));
 	}
@@ -54,11 +54,11 @@ void handle_kill(int handle_id){
 
 //SUBROUTINES FOR SNAKE & LADDER
 int pl_loc[100];
-int snake_src[7] = {26, 34, 48, 55, 78, 85, 99};
-int snake_dst[7] = {4, 10, 5, 20, 30, 55, 9};
+int snake_src[8] = {26, 34, 48, 55, 62, 78, 85, 99};
+int snake_dst[8] = {4, 10, 5, 20, 30, 24,55 , 9};
 
-int ladder_src[7] = {5, 11, 17, 24, 41, 63, 80};
-int ladder_dst[7] = {30, 43, 76, 87, 65, 92, 97};
+int ladder_src[8] = {5, 11, 17, 24, 33, 41, 63, 80};
+int ladder_dst[8] = {30, 43, 76, 87, 59, 65, 92, 97};
 
 int pl_win[100];
 
@@ -94,16 +94,16 @@ void* player(void *arg)
 
 		while(1){
 			// exit if no snake or ladder encountered
-			if(get_ind(pl_loc[pl_id], snake_src, 7) == -1 && get_ind(pl_loc[pl_id], ladder_src, 7) == -1){
+			if(get_ind(pl_loc[pl_id], snake_src, 8) == -1 && get_ind(pl_loc[pl_id], ladder_src, 8) == -1){
 				break;
 			}
 			// Check for snake
-			else if(get_ind(pl_loc[pl_id], snake_src, 7) != -1){
+			else if(get_ind(pl_loc[pl_id], snake_src, 8) != -1){
 				int i = get_ind(pl_loc[pl_id], snake_src, 7);
 				pl_loc[pl_id] = snake_dst[i];
 			}	
 			// Check for ladder
-			else if(get_ind(pl_loc[pl_id], ladder_src, 7) != -1){
+			else if(get_ind(pl_loc[pl_id], ladder_src, 8) != -1){
 				int i = get_ind(pl_loc[pl_id], ladder_src, 7);
 				pl_loc[pl_id] = ladder_dst[i];	
 			}	
